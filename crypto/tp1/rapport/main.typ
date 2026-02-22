@@ -13,10 +13,12 @@
 
 #text(size:24pt, weight:"bold")[Cryptography tp 1 repport]
 
+#text(size:14pt)[Ait Yakoub Yazid, Belkacem Salim]
+
 #set heading(numbering: "1.a.")
 
 = Remote shell with SSH
-in this part i used 2 computers running a linux system ( `arch` for the client and `openSUSE` for the server ), to access one's shell using the other with `ssh`.
+in this part i used 2 computers running a linux system, to access one's shell using the other with `ssh`.
 
 == Using password
 
