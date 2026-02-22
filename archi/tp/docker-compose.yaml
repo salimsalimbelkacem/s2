@@ -1,0 +1,9 @@
+services:
+  tomcat:
+    image: tomcat:jre25
+    container_name: tomcat-container
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./myapp/src/main/webapp:/usr/local/tomcat/webapps/ROOT
+    restart: always
