@@ -24,13 +24,7 @@
   - Non volatile
   - Historisees
 
-- *mieux organisees pour le/la:*
-  - prise de decision
-  - collecte
-  - stockage
-  - analyse
-  - presentation
-  - transformation de la donnees en information utile
+- organisées pour le support d'un processus d'aide à la décision.
 
 == architechture d'un entrepot de donnees
 === zone de preparation
