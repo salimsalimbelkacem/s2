@@ -1,5 +1,10 @@
 #set page(columns: 2)
 #set heading(numbering: "I.1.a")
+#show raw: block.with(
+  // fill: yellow,
+  inset: 5pt,
+  stroke: 0.5pt
+)
 
 #text(size: 30pt, [Data Warehouse])
 
@@ -50,10 +55,10 @@ deux types de tables:
 
 == Tables de Faits
 table principale du modele
-- un fait = un sujet d'analyse
-- contient:
-- des mesures
-- des clefs etrangeres vers les tables de dimensions
+- *fait* = sujet d'analyse
+- *contient*:
+  - des mesures
+  - des clefs etrangeres vers les tables de dimensions
 
 == Aditives des mesures
 - Mesures additives
@@ -99,10 +104,10 @@ plusieurs tables de faits partages des tables de dimensions
 = Chapiter 3: Méthode de Conception des entrepôts de données
 
 == Etapes de modelisation
-1. Choisir le processsus metier a modeliser
-2. Definir la granularite de chaque processsus
-3. choisir les dimensions
-3. Identifier les faits numeriques
+1. *Choisir le processsus metier a modeliser*
++ *Definir la granularite de chaque processsus*
++ *choisir les dimensions*
++ *Identifier les faits numeriques*
 
 == Approche de realisation
 === Approche Descendante (top-down / inmon)
@@ -117,13 +122,13 @@ Concevoir tous les faits et toutes les dimensions avant implémentation.
     - questionaires
     - regle de gestion
 
-  2. Spécification des besoins
+  + Spécification des besoins
     - Construire la matrice des besoins
   #image("./tableau.png")
     - Simplifier la matrice
   #image("tableau_simplifie.png")
 
-  3. Formalisation des besoins
+  + Formalisation des besoins
     - Définition des faits
     - Définition des dimensions
     - Définition des hiérarchies
@@ -142,13 +147,24 @@ Créer des datamarts indépendants, puis les intégrer progressivement en un ent
   - Diagramme UML, documents XML.
 
 - *Etapes (à partir d’un diagramme E/R):*
-1. Définition des faits
-  - Analyse du schéma de la source globale
-  - Détection des classes représentatives de l'analyse
+1. *Définition des faits*
+  - Analyse du schéma de la source globale.
+  - Détection des classes représentatives.
+    -`Une classe représentative decrit un evenement qui se produit a un instant donne, et contient les mesures d'analyse `
   - Choix des mesures d'activités à analyser
-2. Définition des dimensions
-3. Définition de la granularité
-4. Hiérarchisation des dimensions
+
++ *Définition des dimensions*
+  - Détection des classes déterminantes des classes représentatives
+   `Une classe Ci est déterminante d'une classe CR si :
+> CR est relié à Ci par un lien de dépendance fonctionnelle directement ou indirectement.
+> Cela signifie que Ci fournit un contexte ou une perspective pour analyser CR. `
+  - *Choix des paramètres d'analyse*
+    - Les attributs des classes déterminantes qui seront utilisés comme dimensions
+  - *Définition de la dimension temporelle*
+
++ *Définition de la granularité*
+
++ *Hiérarchisation des dimensions*
 
 - *Avantages:* Simple, résultats rapides, efficace à court terme.
 
@@ -158,3 +174,23 @@ Créer des datamarts indépendants, puis les intégrer progressivement en un ent
 
 === Approche Hybride (Middle-out)
 Combiner les deux approches – conception intégrale suivie d’un affinage par les besoins utilisateurs.
+- *Etapes*:
+1. Obtenir un ensemble de modèles multidimensionnels à partir d'un diagramme de classes UML
+
+  1. Identification des faits
+    `Une classe H est classée comme une classe de fait si :
+> Elle a au moins un attribut numérique non clé
+> Elle est liée à au moins à une classe E1 avec une cardinalité (un à plusieurs)`
+    - Effectuer des interviews avec un nombre d'utilisateurs pour établir une liste de processus
+  + Definition des dimensions et des hiérarchies
+      `Un processus contient un ensemble des besoins (exigences) des utilisateurs`
+    - Analyser les processus pour choisir et affiner les modèles multidimensionnels en flocon établit.
+      `Évaluer le modèle multidimensionnel obtenu avec les exigences des utilisateurs.`
++ Affiner le modèle multidimensionnel par les besoins des utilisateurs
+- *Avantages:*
+  - Prendre le meilleur des 2 approches
+  - Développement d'un modèle de données d'entreprise de manière itérative
+  - Développement d'une infrastructure lourde qu'en cas de nécessité
+
+- *Inconvénients:*
+  - Implique, parfois, des compromis de découpage (dupliquer des dimensions identiques pour des besoins pratiques).
