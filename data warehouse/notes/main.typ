@@ -1,4 +1,4 @@
-#set page(columns: 2)
+#set page(columns: 2, margin: 30pt)
 #set heading(numbering: "I.1.a")
 #show raw: block.with(
   // fill: yellow,
